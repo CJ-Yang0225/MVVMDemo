@@ -1,20 +1,18 @@
 package com.example.jerry.mvvmdemo.api
 
-import com.example.jerry.mvvmdemo.ui.RepoViewModel
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
+
 class RetrofitManager {
+
+    // static
     companion object {
-        var mInstance = RetrofitManager()
+        val mInstance = RetrofitManager()
     }
 
-    lateinit var mViewModel: RepoViewModel
-    lateinit var githubService: GithubService
-
-    private fun initRetrofit() {
-        // Model
+    private fun initRetrofit(): GithubService {
         val retrofit = Retrofit.Builder()
                 .baseUrl("https://api.github.com/")
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -22,10 +20,11 @@ class RetrofitManager {
                 .build()
 //                .create(GithubService::class.java)
 
-        githubService = retrofit.create(GithubService::class.java)
+        return retrofit.create(GithubService::class.java)
     }
 
     fun getAPI(): GithubService {
-        return mInstance.githubService
+        return mInstance.initRetrofit()
     }
 }
+

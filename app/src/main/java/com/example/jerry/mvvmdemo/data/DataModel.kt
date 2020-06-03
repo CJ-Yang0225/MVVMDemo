@@ -7,7 +7,6 @@ import com.example.jerry.mvvmdemo.data.model.Repo
 import com.example.jerry.mvvmdemo.data.model.RepoSearchResponse
 import retrofit2.Call
 import retrofit2.Response
-import javax.security.auth.callback.Callback
 
 
 class DataModel {

@@ -13,6 +13,10 @@ class RepoViewModel : ViewModel() {
     private val repos = MutableLiveData<List<Repo>>()
     private lateinit var dataModel: DataModel
 
+    fun setDataModel(dataModel: DataModel?) {
+        this.dataModel = dataModel!!
+    }
+
     fun getRepos(): LiveData<List<Repo>> {
         return repos
     }
