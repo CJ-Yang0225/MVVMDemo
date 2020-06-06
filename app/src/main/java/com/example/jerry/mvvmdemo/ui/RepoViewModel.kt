@@ -1,7 +1,6 @@
 package com.example.jerry.mvvmdemo.ui
 
 import androidx.databinding.ObservableBoolean
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.jerry.mvvmdemo.data.DataModel
@@ -17,7 +16,7 @@ class RepoViewModel : ViewModel() {
         this.dataModel = dataModel!!
     }
 
-    fun getRepos(): LiveData<List<Repo>> {
+    fun getRepos(): MutableLiveData<List<Repo>> {
         return repos
     }
 
