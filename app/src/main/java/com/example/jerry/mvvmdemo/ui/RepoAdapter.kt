@@ -12,7 +12,12 @@ import com.example.jerry.mvvmdemo.databinding.RepoItemBinding
 internal data class RepoAdapter(var items: ArrayList<Repo>) : RecyclerView.Adapter<RepoAdapter.RepoViewHolder>() {
 
     // 設定 binding 初始值
-    internal class RepoViewHolder(internal val binding: RepoItemBinding) : RecyclerView.ViewHolder(binding.root)
+    internal class RepoViewHolder(internal val binding: RepoItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(repo: Repo) {
+            binding.repo = repo
+            binding.executePendingBindings()
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -33,6 +38,8 @@ internal data class RepoAdapter(var items: ArrayList<Repo>) : RecyclerView.Adapt
         Glide.with(holder.itemView.context)
                 .load(owner.avatarUrl)
                 .into(holder.binding.ownerAvatar)
+
+        holder.bind(items[position])
         holder.binding.name.text = fullName
         holder.binding.desc.text = description
         holder.binding.stars.text = stars.toString()

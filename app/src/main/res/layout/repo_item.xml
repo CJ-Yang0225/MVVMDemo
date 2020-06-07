@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <import type="android.view.View" />
         <variable
             name="repo"
             type="com.example.jerry.mvvmdemo.data.model.Repo" />
@@ -37,7 +38,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/stars"
                 app:layout_constraintStart_toEndOf="@+id/ownerAvatar"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="repository name" />
+                tools:text="@{repo.fullName}" />
 
             <TextView
                 android:id="@+id/desc"
@@ -49,7 +50,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ownerAvatar"
                 tools:layout_editor_absoluteX="@dimen/default_margin"
-                tools:text="this is some description more description more description" />
+                tools:text="@{repo.description}" />
 
             <TextView
                 android:id="@+id/stars"

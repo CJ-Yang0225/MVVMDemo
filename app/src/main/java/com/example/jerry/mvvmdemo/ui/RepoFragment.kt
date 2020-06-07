@@ -2,6 +2,7 @@ package com.example.jerry.mvvmdemo.ui
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +18,7 @@ import com.example.jerry.mvvmdemo.viewmodel.GithubViewModelFactory
 import kotlinx.android.synthetic.main.fragment_repo.*
 
 
-private const val TAG = "Repo"
+const val TAG = "Repo"
 
 
 /**
@@ -32,19 +33,13 @@ class RepoFragment : Fragment() {
     private val factory: GithubViewModelFactory = GithubViewModelFactory()
     private lateinit var viewModel: RepoViewModel
 
-    private fun newInstance(): RepoFragment? {
+    internal fun newInstance(): RepoFragment {
         return RepoFragment()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        viewModel = ViewModelProvider(this, factory).get(RepoViewModel::class.java)
-
-        viewModel.getRepos().observe(this, Observer<List<Repo>> { repos ->
-            repoAdapter.swapItems(repos)
-        })
-
         binding = FragmentRepoBinding.inflate(inflater, container, false)
 
         return binding.root
@@ -52,6 +47,14 @@ class RepoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProvider(this, factory).get(RepoViewModel::class.java)
+
+        // Elegant way to achieve (Android KTX)
+//        val viewModel: RepoViewModel by viewModels { factory }
+        viewModel.getRepos().observe(viewLifecycleOwner, Observer<List<Repo>> { repos ->
+            repoAdapter.swapItems(repos)
+        })
 
         binding.btnSearch.setOnClickListener { doSearch() }
         binding.editQuery.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
@@ -67,18 +70,13 @@ class RepoFragment : Fragment() {
 
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-
-    }
-
 //    fun View.hideKeyboard(inputMethodManager: InputMethodManager) {
 //        inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
 //    }
 
     private fun doSearch() {
         val query: String = binding.editQuery.text.toString()
+        Log.d(TAG, "doSearch: $query")
         if (query.isEmpty()) {
             repoAdapter.clearItems()
             return

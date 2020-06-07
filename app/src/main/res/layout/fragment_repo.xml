@@ -13,8 +13,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:focusableInTouchMode="true">
+        android:layout_height="match_parent">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout"
@@ -28,7 +27,8 @@
                 android:id="@+id/edit_query"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="search repositories" />
+                android:hint="search repositories"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -44,11 +44,13 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="64dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
-            tools:listitem="@layout/repo_item" />
+            tools:listitem="@layout/repo_item"
+            tools:visibility="invisible" />
 
         <ProgressBar
             android:id="@+id/progressBar"
