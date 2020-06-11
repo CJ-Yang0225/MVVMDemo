@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <import type="android.view.View" />
         <variable
             name="repo"
             type="com.example.jerry.mvvmdemo.data.model.Repo" />
@@ -26,7 +25,8 @@
                 android:layout_marginLeft="8dp"
                 android:scaleType="fitCenter"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:imageUrl="@{repo.owner.avatar_url}"/>
 
             <TextView
                 android:id="@+id/name"
@@ -38,7 +38,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/stars"
                 app:layout_constraintStart_toEndOf="@+id/ownerAvatar"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="@{repo.fullName}" />
+                tools:text="@{repo.full_name}" />
 
             <TextView
                 android:id="@+id/desc"
@@ -64,7 +64,7 @@
                 android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="@{String.valueOf(repo.stars)}" />
+                tools:text="@{String.valueOf(repo.stargazers_count)}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

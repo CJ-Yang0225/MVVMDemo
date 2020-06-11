@@ -1,7 +1,9 @@
 package com.example.jerry.mvvmdemo.ui
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -9,10 +11,11 @@ import com.example.jerry.mvvmdemo.data.model.Repo
 import com.example.jerry.mvvmdemo.databinding.RepoItemBinding
 
 
-internal data class RepoAdapter(var items: ArrayList<Repo>) : RecyclerView.Adapter<RepoAdapter.RepoViewHolder>() {
+class RepoAdapter(var items: ArrayList<Repo>) : RecyclerView.Adapter<RepoAdapter.RepoViewHolder>() {
+    private lateinit var onItemClickListener: OnItemClickListener
 
     // 設定 binding 初始值
-    internal class RepoViewHolder(internal val binding: RepoItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class RepoViewHolder(private val binding: RepoItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(repo: Repo) {
             binding.repo = repo
             binding.executePendingBindings()
@@ -35,14 +38,20 @@ internal data class RepoAdapter(var items: ArrayList<Repo>) : RecyclerView.Adapt
         // id & name are never used, so replace with "_"
         val (_, _, fullName, description, stars, owner) = items[position]
 
-        Glide.with(holder.itemView.context)
-                .load(owner.avatarUrl)
-                .into(holder.binding.ownerAvatar)
-
         holder.bind(items[position])
-        holder.binding.name.text = fullName
-        holder.binding.desc.text = description
-        holder.binding.stars.text = stars.toString()
+
+        /* 改用Data Binding */
+//        Glide.with(holder.itemView.context)
+//                .load(owner.avatar_url)
+//                .into(holder.binding.ownerAvatar)
+
+//        holder.binding.name.text = fullName
+//        holder.binding.desc.text = description
+//        holder.binding.stars.text = stars.toString()
+
+        holder.itemView.setOnClickListener {
+            onItemClickListener.onItemClick(it, position)
+        }
     }
 
     fun clearItems() {
@@ -59,6 +68,15 @@ internal data class RepoAdapter(var items: ArrayList<Repo>) : RecyclerView.Adapt
             this.items.addAll(newItems)
             result.dispatchUpdatesTo(this)
         }
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        this.onItemClickListener = listener
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(view: View, position: Int)
+        fun onItemLongClick(view: View, position: Int)
     }
 
     open class RepoDiffCallback(private val oldList: List<Repo>?, private val newList: List<Repo>?) : DiffUtil.Callback() {

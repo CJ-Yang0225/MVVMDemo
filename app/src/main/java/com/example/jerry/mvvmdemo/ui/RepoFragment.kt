@@ -8,12 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jerry.mvvmdemo.data.model.Repo
 import com.example.jerry.mvvmdemo.databinding.FragmentRepoBinding
+import com.example.jerry.mvvmdemo.ui.RepoAdapter.OnItemClickListener
 import com.example.jerry.mvvmdemo.viewmodel.GithubViewModelFactory
 import kotlinx.android.synthetic.main.fragment_repo.*
 
@@ -68,7 +70,17 @@ class RepoFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = repoAdapter
 
+        repoAdapter.setOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClick(view: View, position: Int) {
+                Toast.makeText(context, "Clicked No.$position item" ,Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onItemLongClick(view: View, position: Int) {
+                TODO("Not yet implemented")
+            }
+        })
     }
+
 
 //    fun View.hideKeyboard(inputMethodManager: InputMethodManager) {
 //        inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
