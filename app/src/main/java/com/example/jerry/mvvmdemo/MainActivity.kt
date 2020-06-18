@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jerry.mvvmdemo.data.model.Repo
+import com.example.jerry.mvvmdemo.ui.ComicFragment
 import com.example.jerry.mvvmdemo.ui.RepoAdapter
 import com.example.jerry.mvvmdemo.ui.RepoFragment
 import kotlinx.android.synthetic.main.fragment_repo.*
@@ -19,10 +20,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val tag = com.example.jerry.mvvmdemo.ui.TAG
+        val tag = com.example.jerry.mvvmdemo.ui.COMIC
 
         if (supportFragmentManager.findFragmentByTag(tag) == null) {
-            val fragment = RepoFragment().newInstance()
+            val fragment = ComicFragment().newInstance()
             supportFragmentManager.inTransaction {
                 add(R.id.container, fragment)
             }
