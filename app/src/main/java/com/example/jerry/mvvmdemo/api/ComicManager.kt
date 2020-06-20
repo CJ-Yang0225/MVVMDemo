@@ -10,6 +10,7 @@ class ComicManager {
         val mInstance = ComicManager()
     }
 
+    /* 利用 Retrofit 對API建立連線初始化 */
     private fun initRetrofit(): ComicService {
         val retrofit = Retrofit.Builder()
                 .baseUrl("http://community-candle.hopto.org:3000/")     // https://api.github.com/

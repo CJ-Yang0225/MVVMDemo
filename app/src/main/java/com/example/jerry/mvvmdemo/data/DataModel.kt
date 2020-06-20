@@ -9,11 +9,11 @@ import retrofit2.Response
 
 
 class DataModel {
-    private val githubService = RetrofitManager().getAPI()
+    private val apiService = RetrofitManager().getAPI()
 
     fun searchRepo(query: String, callback: OnDataReadyCallback) {
-        Log.d(javaClass.toString(), "searchRepo: ${githubService}")
-        githubService.searchRepos(query)
+        Log.d(javaClass.toString(), "searchRepo: ${apiService}")
+        apiService.searchRepos(query)
                 .enqueue(object : retrofit2.Callback<RepoSearchResponse> {
                     override fun onResponse(call: Call<RepoSearchResponse>?, response: Response<RepoSearchResponse>) {
 //                        response.body()?.repoIds?.let { callback.onDataReady(it) }

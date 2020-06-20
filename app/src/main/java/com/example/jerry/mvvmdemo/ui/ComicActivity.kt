@@ -8,10 +8,11 @@ import com.example.jerry.mvvmdemo.R
 import com.example.jerry.mvvmdemo.data.ComicModel
 import kotlinx.android.synthetic.main.activity_comic.*
 
-var comicId = 0
+var comicId: Int? = null
 
 class ComicActivity : AppCompatActivity() {
 
+    /* 漫畫閱讀頁面，目前採用 WebView */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comic)

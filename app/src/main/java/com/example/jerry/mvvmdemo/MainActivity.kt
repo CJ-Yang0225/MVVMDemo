@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val tag = com.example.jerry.mvvmdemo.ui.COMIC
 
+        // 轉換至 Fragment
         if (supportFragmentManager.findFragmentByTag(tag) == null) {
             val fragment = ComicFragment().newInstance()
             supportFragmentManager.inTransaction {
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // 轉換 Fragment 的 Kotlin 擴充套件(Extension)
     private inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> FragmentTransaction) {
         beginTransaction().func().commit()
     }
